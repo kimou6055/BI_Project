@@ -58,17 +58,20 @@ from pygrametl.tables import FactTable
 
 
 import pyodbc 
-conn2 = pyodbc.connect('Driver={SQL Server};'
-                      'Server=KARIM-LEO;'
-                      'Database=DW_projet;'
-                      'Trusted_Connection=yes;')
+conn2 = pyodbc.connect('Driver={SQL Server Native Client 11.0};'
+                      'Server=sql8004.site4now.net;'
+                      'Database=db_a92253_innovision;'
+                      'UID=db_a92253_innovision_admin;'
+                      'PWD=innovision2022;'
+                      )
+
 cursor2 = conn2.cursor()
 
 
 # In[355]:
 
 
-SQL_Query = pd.read_sql_query('''select * FROM DW_projet.dbo.factSales''', conn2)
+SQL_Query = pd.read_sql_query('''select * FROM db_a92253_innovision.dbo.factSales''', conn2)
 data = pd.DataFrame(SQL_Query)
 
 
@@ -284,7 +287,7 @@ sum_returned=sum_returned.sort_values(by=['returned_predictions'],ascending=Fals
 # In[369]:
 
 
-SQL_Query = pd.read_sql_query('''select * FROM DW_projet.dbo.DimProduct''', conn2)
+SQL_Query = pd.read_sql_query('''select * FROM db_a92253_innovision.dbo.DimProduct''', conn2)
 DimProduct = pd.DataFrame(SQL_Query)
 
 

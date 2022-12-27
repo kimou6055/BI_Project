@@ -86,20 +86,18 @@ from apyori import apriori
 
 
 import pyodbc 
-conn = pyodbc.connect('Driver={SQL Server};'
-                      'Server=KARIM-LEO;'
-                      'Database=DataProjet;'
-                      'Trusted_Connection=yes;')
 
-cursor = conn.cursor()
 
 
 
 import pyodbc 
-conn2 = pyodbc.connect('Driver={SQL Server};'
-                      'Server=KARIM-LEO;'
-                      'Database=DW_projet;'
-                      'Trusted_Connection=yes;')
+conn2 = pyodbc.connect('Driver={SQL Server Native Client 11.0};'
+                      'Server=sql8004.site4now.net;'
+                      'Database=db_a92253_innovision;'
+                      'UID=db_a92253_innovision_admin;'
+                      'PWD=innovision2022;'
+                      )
+
 
 cursor2 = pygrametl.ConnectionWrapper(connection=conn2)
 
@@ -110,7 +108,7 @@ warnings.filterwarnings("ignore")
 #Reading SQL query into a DataFrame 
 
 #Fact Sales
-SQL_Query = pd.read_sql_query('''select * FROM DW_projet.dbo.FactSales''', conn2)
+SQL_Query = pd.read_sql_query('''select * FROM db_a92253_innovision.dbo.FactSales''', conn2)
 
 data = pd.DataFrame(SQL_Query)
 
@@ -131,7 +129,7 @@ data = pd.DataFrame(SQL_Query)
 # In[37]:
 
 
-SQL_Query = pd.read_sql_query('''select Product_PK,[Product Name] FROM DW_Projet.dbo.DimProduct''', conn2)
+SQL_Query = pd.read_sql_query('''select Product_PK,[Product Name] FROM db_a92253_innovision.dbo.DimProduct''', conn2)
 dimProduct = pd.DataFrame(SQL_Query)
 
 

@@ -37,10 +37,12 @@ import pygrametl
 
 
 import pyodbc
-conn2 = pyodbc.connect('Driver={SQL Server};'
-                       'Server=KARIM-LEO;'
-                       'Database=DW_projet;'
-                       'Trusted_Connection=yes;')
+conn2 = pyodbc.connect('Driver={SQL Server Native Client 11.0};'
+                      'Server=sql8004.site4now.net;'
+                      'Database=db_a92253_innovision;'
+                      'UID=db_a92253_innovision_admin;'
+                      'PWD=innovision2022;'
+                      )
 
 cursor2 = pygrametl.ConnectionWrapper(connection=conn2)
 
@@ -72,10 +74,10 @@ pd.set_option('display.float_format', lambda x: '%.2f' % x)
 # Reading SQL query into a DataFrame
 
 SQL_Query = pd.read_sql_query(
-    '''select * FROM DW_Projet.dbo.FactSales''', conn2)
+    '''select * FROM db_a92253_innovision.dbo.FactSales''', conn2)
 dataFact = pd.DataFrame(SQL_Query)
 SQL_Query = pd.read_sql_query(
-    '''select DateKey,Date FROM DW_Projet.dbo.DimDate''', conn2)
+    '''select DateKey,Date FROM db_a92253_innovision.dbo.DimDate''', conn2)
 dimDate = pd.DataFrame(SQL_Query)
 
 
@@ -99,15 +101,6 @@ data = dataFact.copy()
 
 # In[12]:
 
-
-# Extracting Year from FK_Date_Order
-data['Year'] = dataFact['FK_Date_Order'].str.split('-').str[0]
-
-# Extracting Month from FK_Date_Order
-data['Month'] = dataFact['FK_Date_Order'].str.split('-').str[1]
-
-# Extracting Day from FK_Date_Order
-data['Day'] = dataFact['FK_Date_Order'].str.split('-').str[2]
 
 
 
@@ -162,14 +155,6 @@ data['Returned'] = data['Returned'].replace(['NO'], '0')
 data['Returned'] = data['Returned'].replace(['Yes'], '1')
 data['Returned'] = data['Returned'].apply(int)
 
-
-# In[23]:
-
-
-# converting Year,Moth and day from Object type to int type
-data.Year = data.Year.astype('int')
-data.Month = data.Month.astype('int')
-data.Day = data.Day.astype('int')
 
 
 
