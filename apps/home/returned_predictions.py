@@ -64,7 +64,6 @@ conn2 = pyodbc.connect('Driver={SQL Server Native Client 11.0};'
                       'UID=db_a92253_innovision_admin;'
                       'PWD=innovision2022;'
                       )
-
 cursor2 = conn2.cursor()
 
 

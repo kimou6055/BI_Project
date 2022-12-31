@@ -360,7 +360,7 @@ demo = {
     var data = {
       labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
       datasets: [{
-        label: "Data",
+        label: "quantity",
         fill: true,
         backgroundColor: gradientStroke,
         borderColor: '#0401d0',
@@ -374,7 +374,7 @@ demo = {
         pointHoverRadius: 4,
         pointHoverBorderWidth: 15,
         pointRadius: 4,
-        data: [80, 100, 70, 80, 120, 80],
+        data: [785, 365, 800, 454, 658, 1257],
       }]
     };
 
@@ -386,40 +386,90 @@ demo = {
 
 
     var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
+    function loadJson(selector) {
+      return JSON.parse(document.querySelector(selector).getAttribute('data-json'));
+    }
+   
+      var jsonData = loadJson('#Top5localisation');
+      
+      const fromDb1 = undefined;
+      const City = fromDb1 || [];
+  for (let i = 0; i < jsonData.length; i++) {
+    City[i]=jsonData[i].City;
+  }
+  const Profit = fromDb1 || [];
+  for (let i = 0; i < jsonData.length; i++) {
+    Profit[i]=jsonData[i].Profit;
+  }
 
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+    var chart_data = City;
+    var data = Profit;
+    var gradientStroke = ctxGreen.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
     gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); //green colors
     gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
-
-    var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
-      datasets: [{
-        label: "My First dataset",
-        fill: true,
-        backgroundColor: gradientStroke,
-        borderColor: '#00d6b4',
-        borderWidth: 2,
-        borderDash: [],
-        borderDashOffset: 0.0,
-        pointBackgroundColor: '#00d6b4',
-        pointBorderColor: 'rgba(255,255,255,0)',
-        pointHoverBackgroundColor: '#00d6b4',
-        pointBorderWidth: 20,
-        pointHoverRadius: 4,
-        pointHoverBorderWidth: 15,
-        pointRadius: 4,
-        data: [90, 27, 60, 12, 80],
-      }]
-    };
-
-    var myChart = new Chart(ctxGreen, {
-      type: 'line',
-      data: data,
-      options: gradientChartOptionsConfigurationWithTooltipGreen
-
+   
+   
+   
+   
+   
+ var config2 = {
+      type: 'bar',
+      responsive: true,
+      legend: {
+        display: false
+      },
+      data: {
+        labels: chart_data,
+        datasets: [{
+          
+          fill: true,
+          backgroundColor: gradientStroke,
+          hoverBackgroundColor: gradientStroke,
+          borderColor: '#00d6b4',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          data:  data,
+        }]
+      },
+      options: gradientBarChartConfiguration
+    };  
+   
+   
+   
+    var myChartData3 = new Chart(ctxGreen, config2);
+  
+    $("#6").click(function() {
+      var chart_data = Profit;
+      var data = myChartData3.config.data;
+      data.datasets[0].data = chart_data;
+      data.labels = City;
+      myChartData3.update();
     });
+    $("#7").click(function() {
+      var jsonData = loadJson('#Top5Customers');
+      
+      const fromDb1 = undefined;
+      const Customer_ID = fromDb1 || [];
+  for (let i = 0; i < jsonData.length; i++) {
+    Customer_ID[i]=jsonData[i].Customer_ID;
+  }
+  const Profit = fromDb1 || [];
+  for (let i = 0; i < jsonData.length; i++) {
+    Profit[i]=jsonData[i].Profit;
+  }
+
+      var chart_data = Profit;
+      var data = myChartData3.config.data;
+      data.datasets[0].data = chart_data;
+      data.labels = Customer_ID;
+      myChartData3.update();
+    });
+
+
 
     var ctx = document.getElementById("chartBig1").getContext('2d');
     

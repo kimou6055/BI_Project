@@ -12,6 +12,7 @@ from django.shortcuts import render
 from apps.home import profits_prediction as pred
 from apps.home import apriori_prediction 
 from apps.home import returned_predictions
+from apps.home import clients_city_clusturing
 import json
 
 @login_required(login_url="/login/")
@@ -33,9 +34,16 @@ def index(request):
     data = returned_predictions.df_sub_category_returned.to_dict(orient='records')
     df_sub_category_returned = json.dumps(data, indent=2)
     
+    data = clients_city_clusturing.Top5Customers.to_dict(orient='records')
+    Top5Customers = json.dumps(data, indent=2)
+    
+    data = clients_city_clusturing.Top5localisation.to_dict(orient='records')
+    Top5localisation = json.dumps(data, indent=2)
+    
     return render(request, 'home/index.html',{'profit_pred':profit_pred,'profit_pred2':profit_pred2,'apriori':apriori,
                                               'df_top10_returned':df_top10_returned,'df_category_returned':df_category_returned,
-                                              'df_sub_category_returned':df_sub_category_returned})
+                                              'df_sub_category_returned':df_sub_category_returned,
+                                              'Top5Customers':Top5Customers,'Top5localisation':Top5localisation})
 
 
 @login_required(login_url="/login/")
