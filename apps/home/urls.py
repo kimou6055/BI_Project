@@ -10,8 +10,7 @@ urlpatterns = [
 
     # The home page
     path('', views.index, name='home'),
-    
-    
+    #path('predict/', views.predict_view, name="predict"),
     # Matches any html file
     re_path(r'^.*\.*', views.pages, name='pages'),
     

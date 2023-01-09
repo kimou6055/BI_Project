@@ -83,10 +83,10 @@ data['Cluster'].value_counts()
 
 
 
-customer_profits = data.groupby('FK_Customer',as_index=False)['Profit'].sum()
+customer_profits1 = data.groupby('FK_Customer',as_index=False)['Profit'].sum()
 
 # Trier les clients par profit décroissant et sélectionner les 10 premiers
-top_customers = customer_profits.sort_values(ascending=False,by='Profit').head(5)
+top_customers = customer_profits1.sort_values(ascending=False,by='Profit').head(5)
 
 # Afficher le top 10 des meilleurs clients
 print(top_customers)
