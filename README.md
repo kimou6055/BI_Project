@@ -98,13 +98,6 @@ The app is provided with a basic configuration to be executed in [Heroku](https:
 
 The application can be easily executed in a docker container. The steps:
 
-> Get the code
-
-```bash
-$ git clone https://github.com/app-generator/django-dashboard-black.git
-$ cd django-dashboard-black
-```
-
 > Start the app in Docker
 
 ```bash
